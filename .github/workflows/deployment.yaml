@@ -1,11 +1,12 @@
-name: Deploy Static Site to ECS
+name: Push Docker Image to ECR Public
+
 on:
   push:
     branches:
       - main
 
 jobs:
-  deploy:
+  push-image:
     runs-on: ubuntu-latest
 
     steps:
@@ -30,7 +31,4 @@ jobs:
 
     - name: Push Docker image to ECR Public
       run: docker push public.ecr.aws/f6x5f0l3/docker-ecr:latest
-
-    - name: Deploy to ECS
-      uses: aws-actions/amazon-ecs-deploy-task-definition@v1
-     
+``
