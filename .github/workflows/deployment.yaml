@@ -37,18 +37,22 @@ jobs:
       id: login-ecr
 
       uses: aws-actions/amazon-ecr-login@v1
+
+    - name: aws login
+
+      run: aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/f6x5f0l3
  
     - name: Build Docker image
 
-      run: docker build -t static-site .
+      run: docker build -t docker-ecr . 
  
     - name: Tag Docker image
 
-      run: docker tag static-site:latest public.ecr.aws/f6x5f0l3/docker-ecr/static-site:latest
+      run: docker tag docker-ecr:latest public.ecr.aws/f6x5f0l3/docker-ecr:latest
  
     - name: Push Docker image to ECR
 
-      run: docker push public.ecr.aws/f6x5f0l3/docker-ecr/static-site:latest
+      run: docker push public.ecr.aws/f6x5f0l3/docker-ecr:latest
  
     - name: Deploy to ECS
 
