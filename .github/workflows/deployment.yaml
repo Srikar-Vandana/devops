@@ -31,4 +31,10 @@ jobs:
 
     - name: Push Docker image to ECR Public
       run: docker push public.ecr.aws/f6x5f0l3/docker-ecr:latest
+      with: 
+        task-definition: ecs-task-def.json
+        service: my-nginx-service       # Replace with actual service name
+        cluster: my-cluster       # Replace with actual cluster name
+        wait-for-service-stability: true
 ``
+
